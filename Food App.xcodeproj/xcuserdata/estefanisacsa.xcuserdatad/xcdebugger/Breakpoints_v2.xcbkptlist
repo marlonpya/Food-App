@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "01771420-022B-4FA1-A383-8E1FBE788CCE"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1105C84D-A26A-4A97-AF4E-DC1C40F8F5F9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Food App/BeerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "getBeers(food:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1105C84D-A26A-4A97-AF4E-DC1C40F8F5F9 - 51fdebc5d80f1114"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Food_App.BeerViewModel.getBeers(food: Swift.String) -&gt; ()"
+                  moduleName = "Food App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/estefanisacsa/Documents/MARLON/FOOD%20APP/Food%20App/Food%20App/BeerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "219">
+               </Location>
+               <Location
+                  uuid = "1105C84D-A26A-4A97-AF4E-DC1C40F8F5F9 - 51fdebc5d80f1114"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Food_App.BeerViewModel.getBeers(food: Swift.String) -&gt; ()"
+                  moduleName = "Food App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/estefanisacsa/Documents/MARLON/FOOD%20APP/Food%20App/Food%20App/BeerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "137">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
