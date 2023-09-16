@@ -9,22 +9,33 @@ import Foundation
 
 class BeerViewModel: ObservableObject {
     @Published var list = [DataModel]()
-    @Published var filterList = [DataModel]()
     
-    var currentPage = 1
-    var currentPageFilter = 1
-    var lastSearchBeer = ""
+    private var currentPage = Constants.View.currenPageDefault
     
-    init() {
-        getBeers()
-    }
-    
-    func getBeers() {
-        RemoteManager.shared.getBeer(page: String(self.currentPage), perPage: String(Constants.perPage)) { result in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+    func fetchBeers(food: String) {
+        let searchFood = food.trimmingCharacters(in: .whitespacesAndNewlines)
+        if searchFood.isEmpty {
+            return
+        }
+        RemoteManager.shared.fetchBeers(food: searchFood) { result in
+            DispatchQueue.main.async {
                 switch result {
                 case.success(let list):
-                    self.resetFilter()
+                    self.list = list
+                    self.currentReset()
+                case.failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func fetchBeersScrollDown(food: String) {
+        let searchFood = food.trimmingCharacters(in: .whitespacesAndNewlines)
+        RemoteManager.shared.fetchBeers(page: String(self.currentPage), perPage: String(Constants.perPage), food: searchFood) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case.success(let list):
                     self.list.append(contentsOf: list)
                 case.failure(let error):
                     print(error.localizedDescription)
@@ -33,50 +44,21 @@ class BeerViewModel: ObservableObject {
         }
     }
     
-    func getBeers(food: String) {
-        let cleanFood = food.trimmingCharacters(in: .whitespacesAndNewlines)
-        if food.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || self.lastSearchBeer.caseInsensitiveCompare(cleanFood) == .orderedSame{
-            return
-        }
-        
-        self.lastSearchBeer = food.trimmingCharacters(in: .whitespacesAndNewlines)
-        RemoteManager.shared.getBeer(page: String(self.currentPageFilter), perPage: String(Constants.perPage), food: food) { result in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                switch result {
-                case.success(let list):
-                    self.filterList.append(contentsOf: list)
-                case.failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
-    func isLast(beer: DataModel) -> Bool {
-        if !self.list.isEmpty && self.filterList.isEmpty {
-            return self.list.last === beer
-        } else if !self.list.isEmpty && !self.filterList.isEmpty {
-            return self.filterList.last === beer
-        }
-        return false
-    }
-    
     func addCurrentPage() {
-        if self.filterList.isEmpty {
-            self.currentPage += 1
-        } else {
-            self.currentPageFilter += 1
-        }
+        self.currentPage += 1
     }
     
     func isAvailableForFetch() -> Bool {
-        let currentPage = self.filterList.isEmpty ? self.currentPage : self.currentPageFilter
-        return currentPage < Constants.maxPage
+        return self.list.count >= Constants.perPage && self.currentPage < Constants.maxPage
     }
     
-    func resetFilter() {
-        self.currentPageFilter = 1
-        self.filterList.removeAll()
+    func cancelFetch() {
+        self.currentReset()
+        self.list.removeAll()
+    }
+    
+    private func currentReset() {
+        self.currentPage = Constants.View.currenPageDefault
     }
 
 }

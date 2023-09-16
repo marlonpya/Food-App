@@ -16,28 +16,18 @@ struct URLConstants {
 
 extension URL {
     
-    static func getBeers(page:String, perPage: String) -> URL {
-        var component = URLComponents()
-        component.scheme = URLConstants.scheme
-        component.path = URLConstants.path
-        component.queryItems = [
-            URLQueryItem(name: "page", value: page),
-            URLQueryItem(name: "per_page", value: perPage)
-        ]
-        return component.url!
-    }
-    
     static func getBeers(food: String) -> URL {
         var component = URLComponents()
         component.scheme = URLConstants.scheme
         component.path = URLConstants.path
         component.queryItems = [
-            URLQueryItem(name: "food", value:food)
+            //URLQueryItem(name: "food", value:food)
+            URLQueryItem(name: "beer_name", value:food)
         ]
         return component.url!
     }
     
-    static func getBeers(page:String, perPage: String, food: String) -> URL {
+    static func getBeers(page: String, perPage: String, food: String) -> URL {
         var component = URLComponents()
         component.scheme = URLConstants.scheme
         component.path = URLConstants.path

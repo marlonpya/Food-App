@@ -10,31 +10,32 @@ import SwiftUI
 struct ContentView: View {
     @State private var searchText = ""
     @StateObject var viewModel = BeerViewModel()
+    @Environment(\.isSearching) private var isSearching: Bool
     
     var body: some View {
         NavigationView {
-            let currentList: [DataModel] = viewModel.filterList.isEmpty ? viewModel.list : viewModel.filterList
             
-            List(currentList, id: \.id){ beer in
+            List(viewModel.list, id: \.id){ beer in
                 TableRow(food: beer)
-                if viewModel.isLast(beer: beer) {
+                if viewModel.list.last === beer {
                     if viewModel.isAvailableForFetch() {
                         Text("loading...")
                             .onAppear(perform: {
                                 viewModel.addCurrentPage()
-                                //viewModel.getBeers()
-                                viewModel.getBeers(food: searchText)
+                                viewModel.fetchBeersScrollDown(food: searchText)
                             })
                     }
                 }
             }
-                
-            
         }
+        .autocorrectionDisabled()
         .searchable(text: $searchText, prompt: "Search Foods")
         .onChange(of: searchText) { newValue in
             withAnimation {
-                viewModel.getBeers(food: newValue)
+                viewModel.fetchBeers(food: newValue)
+            }
+            if searchText.isEmpty && !isSearching {
+                viewModel.cancelFetch()
             }
         }
     }

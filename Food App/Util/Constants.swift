@@ -9,7 +9,12 @@ import Foundation
 
 struct Constants {
     static let maxPage = 10
-    static let perPage = 20
+    static let perPage = 15
     
+    
+    struct View {
+        static let currenPageDefault = 1
+        
+    }
     
 }
