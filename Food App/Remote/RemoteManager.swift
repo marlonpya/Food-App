@@ -2,7 +2,7 @@
 //  RemoteManager.swift
 //  Food App
 //
-//  Created by estefani sacsa on 14/09/23.
+//  Created by marlon arteaga on 14/09/23.
 //
 
 import Foundation

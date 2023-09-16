@@ -16,7 +16,9 @@ struct ContentView: View {
         NavigationView {
             
             List(viewModel.list, id: \.id){ beer in
-                TableRow(food: beer)
+                NavigationLink(destination: DetailView(food: beer)) {
+                    TableRow(food: beer)
+                }
                 if viewModel.list.last === beer {
                     if viewModel.isAvailableForFetch() {
                         Text("loading...")
